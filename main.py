@@ -18,9 +18,14 @@ class ProxyServer:
             client_thread.start()
 
     def handle_client(self, client_socket):
-        request = client_socket.recv(1024).decode('utf-8')
+        request = client_socket.recv(1024)
         first_line = request.split('\n')[0]
         url = first_line.split(' ')[1]
+
+
+        # Sprawdzenie, czy URL zawiera 'https://google.com'
+        if "https://google.pl" in url.decode('utf-8'):
+            print("GOOGLE")
 
         http_pos = url.find("://")
         if (http_pos == -1):
